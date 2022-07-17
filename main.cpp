@@ -1,34 +1,42 @@
-#include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
-int max(int a, int b);
 
-
-int lcs( char *X, char *Y, int m, int n )
-{
-    if (m == 0 || n == 0)
-        return 0;
-    if (X[m-1] == Y[n-1])
-        return 1 + lcs(X, Y, m-1, n-1);
-    else
-        return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n));
-}
-
-int max(int a, int b)
-{
-    return (a > b)? a : b;
-}
-
-/* Driver code */
 int main()
 {
-    char X[] = "AGGTAB";
-    char Y[] = "GXTXAYB";
+   int row, col, m1[10][10], m2[10][10], sum[10][10];
+   cout<<"Enter the number of rows(should be >1 and <10): ";
+   cin>>row;
 
-    int m = strlen(X);
-    int n = strlen(Y);
-
-    cout<<"Length of LCS is "<< lcs( X, Y, m, n ) ;
-
-    return 0;
+   cout<<"Enter the number of column(should be >1 and <10): ";
+   cin>>col;
+   cout << "Enter the elements of first matrix(enter first row first): ";
+   for (int i = 0;i<row;i++ ) {
+     for (int j = 0;j < col;j++ ) {
+       cin>>m1[i][j];
+     }
+   }
+   cout << "Enter the elements of second matrix(enter first row first): ";
+   for (int i = 0;i<row;i++ ) {
+     for (int j = 0;j<col;j++ ) {
+       cin>>m2[i][j];
+     }
+   }
+   for (int i = 0;i<row;i++ ) {
+      for (int j = 0;j<col;j++ ) {
+        sum[i][j]=m1[i][j]+m2[i][j];
+      }
+   }
+      cout<<"Output: ";
+      cout<<endl;
+      for(int i = 0; i < row; ++i)
+        for(int j = 0; j < col; ++j)
+        {
+            cout << sum[i][j] << "  ";
+            if(j == col - 1)
+            cout << endl;
+        }
+   return 0;
 }
+
