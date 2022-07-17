@@ -1,17 +1,35 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int main() {
-  int n1=0,n2=1,n3,i,number;
- cout<<"Enter the number of elements you want: ";
- cin>>number;
- cout<<n1<<" "<<n2<<" ";
- for(i=2;i<number;++i)
- {
-  n3=n1+n2;
-  cout<<n3<<" ";
-  n1=n2;
-  n2=n3;
- }
-   return 0;
-   }
 
+int max(int a, int b);
+
+/* Returns length of LCS for X[0..m-1], Y[0..n-1] */
+int lcs( char *X, char *Y, int m, int n )
+{
+    if (m == 0 || n == 0)
+        return 0;
+    if (X[m-1] == Y[n-1])
+        return 1 + lcs(X, Y, m-1, n-1);
+    else
+        return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n));
+}
+
+/* Utility function to get max of 2 integers */
+int max(int a, int b)
+{
+    return (a > b)? a : b;
+}
+
+/* Driver code */
+int main()
+{
+    char X[] = "AGGTAB";
+    char Y[] = "GXTXAYB";
+
+    int m = strlen(X);
+    int n = strlen(Y);
+
+    cout<<"Length of LCS is "<< lcs( X, Y, m, n ) ;
+
+    return 0;
+}
