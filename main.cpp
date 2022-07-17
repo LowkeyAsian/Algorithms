@@ -1,38 +1,51 @@
-#include<iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int main()
+class Graph
+{
+public:
+    map<int, bool> visited;
+    map<int, list<int>> adj;
 
+
+    void addEdge(int v, int w);
+
+
+    void DFS(int v);
+};
+
+void Graph::addEdge(int v, int w)
+{
+    adj[v].push_back(w);
+}
+
+void Graph::DFS(int v)
 {
 
- int n, i, arr[50], j, temp;
+    visited[v] = true;
+    cout << v << " ";
 
-     cout<<"Enter the Size (max. 25): ";
-     cin>>n;
-     cout<<"Enter "<<n<<" Numbers: ";
 
- for(i=0; i<n; i++)
-     cin>>arr[i];
-     cout<<"\nSorting Array using Bubble Sort \n";
- for(i=0; i<(n-1); i++)
-    {
- for(j=0; j<(n-i-1); j++)
-        {
-            if(arr[j]>arr[j+1])
-            {
-                temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
-            }
-        }
-    }
-     cout<<"\nArray Sorted Successfully!\n";
-     cout<<"\nThe New Array is: \n";
+    list<int>::iterator i;
+    for (i = adj[v].begin(); i != adj[v].end(); ++i)
+        if (!visited[*i])
+            DFS(*i);
+}
 
-for(i=0; i<n; i++)
-     cout<<arr[i]<<" ";
-     cout<<endl;
+
+int main()
+{
+    Graph g;
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 2);
+    g.addEdge(2, 0);
+    g.addEdge(2, 3);
+    g.addEdge(3, 3);
+
+    cout << "Following is Depth First Traversal"
+            " (starting from vertex 2) \n";
+    g.DFS(2);
 
     return 0;
 }
